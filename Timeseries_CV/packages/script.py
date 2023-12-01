@@ -1,5 +1,6 @@
 import pandas as pd
 from types import GeneratorType
+import requests
 
 
 class NestedCV:
@@ -28,11 +29,11 @@ class NestedCV:
 
 if __name__ == "__main__":
 
-    # data = pd.read_csv(r"/content/train.csv")
-    # # data = data.copy()
-    # # data["date"] = pd.to_datetime(data["date"])
+    file_url = r'https://github.com/rud-ninja/IQGateway-submission/blob/main/Timeseries_CV/data/train.csv'
+    response = requests.get(file_url)
+    data = pd.read_csv(StringIO(response.text))
 
-    # k = 3
+    k = 3
     cv = NestedCV(k)
     splits = cv.split(data, "date")
 
